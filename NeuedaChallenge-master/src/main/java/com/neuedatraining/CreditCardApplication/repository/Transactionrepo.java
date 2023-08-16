@@ -26,11 +26,7 @@ public interface Transactionrepo extends MongoRepository<Transactions, ObjectId>
 
     @Query("{ 'customer_id' : ?0 }")
     public List<Transactions> findByCustomerId(int customer_id);
-    @Query("{ 'amt' : { $gt : ?0 } }")
-    List<Transactions> findTransactionsWithAmountGreaterThan(double amount);
 
-    @Query("{ 'amt' : { $lt : ?0 } }")
-    List<Transactions> findTransactionsWithAmountLessThan(double amount);
 
     /*
     @Query("{ 'amt' : { $gte : ?0, $lte : ?1 } }")
@@ -39,25 +35,29 @@ public interface Transactionrepo extends MongoRepository<Transactions, ObjectId>
 
          @Aggregation(pipeline = {
                  "{'$match':{'city':?0, 'amt': {$gt: ?1} }}",
+                 "{'$sample':{size:10}}",
                  "{'$sort':{'Quantity':-1}}"
          })
 
     List<Transactions> findAllTransactionsByCityAmountSort(String city,double amt);
         @Aggregation(pipeline = {
-            "{'$match':{'merchant':?0, 'amt': {$gt: ?1} }}",
-            "{'$sort':{'Quantity':-1}}"
+                "{'$match':{'merchant':?0, 'amt': {$gt: ?1} }}",
+                "{'$sample':{size:10}}",
+                "{'$sort':{'Quantity':-1}}"
         })
 
     List<Transactions> findAllTransactionsByMerchantAmountSort(String merchant,double amt);
         @Aggregation(pipeline = {
-            "{'$match':{'category':?0, 'amt': {$gt: ?1} }}",
-            "{'$sort':{'Quantity':-1}}"
+                "{'$match':{'category':?0, 'amt': {$gt: ?1} }}",
+                "{'$sample':{size:10}}",
+                "{'$sort':{'Quantity':-1}}"
         })
 
     List<Transactions> findAllTransactionsByCategoryAmountSort(String Category,double amt);
 
     @Aggregation(pipeline = {
             "{'$match':{ 'amt' : { $gt : ?0}, 'amt':{$lt : ?1 }}",
+            "{'$sample':{size:10}}",
             "{'$sort':{'Quantity':-1}}"
     })
 
