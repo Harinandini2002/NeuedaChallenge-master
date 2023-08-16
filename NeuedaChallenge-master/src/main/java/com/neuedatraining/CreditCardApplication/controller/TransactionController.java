@@ -1,5 +1,6 @@
 package com.neuedatraining.CreditCardApplication.controller;
 
+import com.neuedatraining.CreditCardApplication.dto.*;
 import com.neuedatraining.CreditCardApplication.entity.Transactions;
 import com.neuedatraining.CreditCardApplication.exception.CardUserNotFoundException;
 import com.neuedatraining.CreditCardApplication.service.TransactionService;
@@ -96,6 +97,31 @@ public class TransactionController {
         } catch (CardUserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+    }
+    @GetMapping("/TotalCityTransactions")
+    public List<CityTransaction> getAmountByCity()
+    {
+        return service.getAmountByCity();
+    }
+    @GetMapping("/TotalCategoryTransactions")
+    public List<CategoryTransaction> getAmountByCategory()
+    {
+        return service.getAmountByCategory();
+    }
+    @GetMapping("/TotalJobTransactions")
+    public List<JobTransaction> getAmountByJob()
+    {
+        return service.getAmountByJob();
+    }
+    @GetMapping("/TotalMerchantTransactions")
+    public List<MerchantTransaction> getAmountByMerchant()
+    {
+        return service.getAmountByMerchant();
+    }
+    @GetMapping("/TotalStateTransactions")
+    public List<StateTransaction> getAmountByState()
+    {
+        return service.getAmountByState();
     }
 
 

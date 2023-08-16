@@ -1,9 +1,10 @@
 package com.neuedatraining.CreditCardApplication.service;
 
 
+import com.neuedatraining.CreditCardApplication.dto.*;
 import com.neuedatraining.CreditCardApplication.entity.Transactions;
-import com.neuedatraining.CreditCardApplication.exception.CardUserAlreadyFoundException;
 import com.neuedatraining.CreditCardApplication.exception.CardUserNotFoundException;
+import com.neuedatraining.CreditCardApplication.repository.TransactionMongoTemplate;
 import com.neuedatraining.CreditCardApplication.repository.Transactionrepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ import java.util.List;
 public class TransactionService {
     @Autowired
     private Transactionrepo repo;
+    @Autowired
+    private TransactionMongoTemplate temp;
 
     public long getTransCount(){
         return this.repo.count();
@@ -58,6 +61,21 @@ public class TransactionService {
     }
     public List<Transactions> getTransactionsByAmountLimitSort(double minAmount,double maxAmount){
         return repo.findAllTransactionsByAmountLimitSort(minAmount,maxAmount);
+    }
+    public List<CityTransaction> getAmountByCity(){
+        return temp.getAmountBasedOnCity();
+    }
+    public List<CategoryTransaction> getAmountByCategory(){
+        return temp.getAmountBasedOnCategory();
+    }
+    public List<JobTransaction> getAmountByJob(){
+        return temp.getAmountBasedOnJob();
+    }
+    public List<MerchantTransaction> getAmountByMerchant(){
+        return temp.getAmountBasedOnMerchant();
+    }
+    public List<StateTransaction> getAmountByState(){
+        return temp.getAmountBasedOnState();
     }
 
 
