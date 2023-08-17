@@ -77,6 +77,9 @@ public class TransactionService {
     public List<StateTransaction> getAmountByState(){
         return temp.getAmountBasedOnState();
     }
+    public List<LowVsHighTransaction> getAmountByThreshold(){
+        return temp.getAmountLowVsHigh();
+    }
 
 
 }

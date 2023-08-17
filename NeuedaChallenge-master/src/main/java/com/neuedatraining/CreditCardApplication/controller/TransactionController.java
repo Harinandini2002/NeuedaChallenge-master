@@ -109,19 +109,18 @@ public class TransactionController {
         return service.getAmountByCategory();
     }
     @GetMapping("/TotalJobTransactions")
-    public List<JobTransaction> getAmountByJob()
-    {
-        return service.getAmountByJob();
-    }
+    public List<JobTransaction> getAmountByJob(){return service.getAmountByJob(); }
+    @GetMapping("/TotalStateTransactions")
+    public List<StateTransaction> getAmountByState(){return service.getAmountByState(); }
     @GetMapping("/TotalMerchantTransactions")
     public List<MerchantTransaction> getAmountByMerchant()
     {
         return service.getAmountByMerchant();
     }
-    @GetMapping("/TotalStateTransactions")
-    public List<StateTransaction> getAmountByState()
+    @GetMapping("/TotalTransactionsBasedOnThreshold")
+    public List<LowVsHighTransaction> getAmountByThreshold()
     {
-        return service.getAmountByState();
+        return service.getAmountByThreshold();
     }
 
 

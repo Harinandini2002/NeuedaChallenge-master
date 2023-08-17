@@ -95,4 +95,16 @@ public class TransactionMongoTemplate implements TemplateRepo {
         List<StateTransaction> result = groupResults.getMappedResults();
         return result;
     }
+    @Override
+    public List<LowVsHighTransaction> getAmountLowVsHigh() {
+        // MongoTemplate pipeline
+        GroupOperation groupByThresholdSumAmount = group("amt").sum("amt").as("total_amt");
+        MatchOperation allThreshold = match(Criteria.where("amt").gt("100"));
+        ProjectionOperation includes = project("total_amt").and("Amount").previousOperation();
+        SortOperation sortByAmountDesc = sort(Sort.by(Sort.Direction.DESC, "total_amt"));
+        Aggregation aggregation = newAggregation(allThreshold, groupByThresholdSumAmount, sortByAmountDesc, includes);
+        AggregationResults<LowVsHighTransaction> groupResults = mongoTemplate.aggregate(aggregation, "transactions", LowVsHighTransaction.class);
+        List<LowVsHighTransaction> result = groupResults.getMappedResults();
+        return result;
+    }
 }
